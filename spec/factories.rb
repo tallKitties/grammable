@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :comment do
+    message "MyText"
+    user_id 1
+    gram_id 1
+  end
   factory :user do
     sequence :email do |n|
       "dummyEmail#{n}@gmail.com"
@@ -9,6 +14,8 @@ FactoryBot.define do
 
   factory :gram do
     message 'hello'
+    picture { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'picture.jpg').to_s, 'image/jpg') }
+
     association :user
   end
 end
