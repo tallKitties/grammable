@@ -3,6 +3,7 @@ class GramsController < ApplicationController
   before_action :set_gram, only: [:show, :edit, :update, :destroy]
 
   def index
+    @grams = Gram.all
   end
 
   def show
@@ -51,7 +52,7 @@ class GramsController < ApplicationController
   private
 
   def gram_params
-    params.require(:gram).permit(:message)
+    params.require(:gram).permit(:message, :picture)
   end
 
   def set_gram
