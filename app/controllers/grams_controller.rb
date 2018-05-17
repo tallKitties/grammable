@@ -17,7 +17,7 @@ class GramsController < ApplicationController
   def create
     @gram = current_user.grams.new(gram_params)
     if @gram.save
-      redirect_to root_path
+      redirect_to root_path(anchor: @gram)
     else
       render :new, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class GramsController < ApplicationController
 
     @gram.update_attributes(gram_params)
     if @gram.valid?
-      redirect_to root_path
+      redirect_to root_path(anchor: @gram)
     else
       return render :edit, status: :unprocessable_entity
     end

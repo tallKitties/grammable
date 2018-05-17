@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
         comment_params.merge(gram_id: gram_id)
       )
     if @comment.save
-      redirect_to root_path
+      redirect_to root_path(anchor: gram_id)
     else
       render_error(:unprocessable_entity)
     end
