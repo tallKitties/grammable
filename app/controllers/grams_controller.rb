@@ -7,7 +7,7 @@ class GramsController < ApplicationController
   end
 
   def show
-    render_not_found unless @gram
+    render_error unless @gram
     end
 
   def new
@@ -24,14 +24,14 @@ class GramsController < ApplicationController
   end
 
   def edit
-    return render_not_found unless @gram
-    return render_not_found(:forbidden) if @gram.user != current_user
+    return render_error unless @gram
+    return render_error(:forbidden) if @gram.user != current_user
   end
 
   def update
-    return render_not_found unless @gram
+    return render_error unless @gram
     if @gram.user != current_user
-      return render_not_found(:forbidden) if @gram.user != current_user
+      return render_error(:forbidden) if @gram.user != current_user
     end
 
     @gram.update_attributes(gram_params)
@@ -43,8 +43,8 @@ class GramsController < ApplicationController
   end
 
   def destroy
-    return render_not_found unless @gram
-    return render_not_found(:forbidden) if @gram.user != current_user
+    return render_error unless @gram
+    return render_error(:forbidden) if @gram.user != current_user
     @gram.destroy
     redirect_to root_path
   end
@@ -57,9 +57,5 @@ class GramsController < ApplicationController
 
   def set_gram
     @gram = Gram.find_by_id(params[:id])
-  end
-
-  def render_not_found(status=:not_found)
-    render plain: "#{status.to_s.titleize}", status: status
   end
 end
