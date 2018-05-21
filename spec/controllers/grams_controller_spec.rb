@@ -52,9 +52,9 @@ RSpec.describe GramsController, type: :controller do
           picture: fixture_file_upload('/picture.jpg', 'image/jpg')
         }
       }
-      expect(response).to redirect_to root_path
-
       gram = Gram.last
+      expect(response).to redirect_to root_path(anchor: gram.id)
+
       expect(gram.message).to eq('Hello!')
       expect(gram.user).to eq(user)
     end
@@ -112,7 +112,7 @@ RSpec.describe GramsController, type: :controller do
       gram = FactoryBot.create(:gram, message: "Initial Value")
       sign_in gram.user
       patch :update, params: { id: gram.id, gram: { message: 'Changed' } }
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to root_path(anchor: gram.id)
       gram.reload
       expect(gram.message).to eq 'Changed'
     end
